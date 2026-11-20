@@ -1,33 +1,39 @@
-# GTA VI meme — "Skipped the queue" (gta6-meme-x-01)
+# GTA VI meme — "GTA VI is out... unless you're on PC" (gta6-meme-x-01)
 
-> **STATUS: PENDING — NO X POST YET. DO NOT SUBMIT.**
-> `POST.json` still holds the kit starter's placeholder URL
-> (`https://x.com/<handle>/status/<id>`). It must be replaced with the real
-> post URL after the meme is posted from a public X account, and only then
-> may this repo be submitted. There is currently no X account available to
-> the @duwikgaul30-dot sponsor identity for posting (see HANDOFF.md in the
-> entry directory) — posting as Popi's personal X account is forbidden.
+> **STATUS: POSTED — ready to submit once the repo is public.**
+> Post: https://x.com/HutangHui95891/status/2123584614069653521
+> (posted 2026-11-20 by Popi from his public X account @HutangHui95891).
+> `POST.json` holds the real post URL.
 
 ## The meme
 
-`meme.png` (1200×1200, built by `build_meme.py`, Pillow, no network,
-byte-identical on re-runs — sha256
-`6813f07909a5f7bafcf38716f0aa950c8c0f80a74cac58781488b66bce507dbc`).
+`meme.png` (1408×1760 PNG, Popi's own version, sha256
+`22831dea9679e8fb5904725d6f95cb51e9a0c43e23fd98cf6f554ea50ee50303`).
+It replaces the agent-made "INSTALLING... 97%" version that was staged
+first: Popi uploaded two more memes on 2026-11-20 and chose this one.
 
-Top — Vice City sunset: **"GTA VI IS OUT — LEONIDA • NOV 19 • PS5 ONLY"**,
-everyone else stuck on `INSTALLING… 97%`. Bottom — the make.fun ghost at a
-laptop flashing `$ PAID $`: **"MY AGENT SKIPPED THE QUEUE. IT GOT PAID ON
-make.fun"**.
+A skeleton with a white beard waits at his PC — the store page reads
+"GTA VI — NOT AVAILABLE ON PC", "BUY — UNAVAILABLE" — while the make.fun
+ghost lounges in a beach chair with a controller, gold coins, a gold chain
+and a "make.fun" towel. Top text: "GTA VI is out... unless you're on PC."
 
-The joke: GTA VI launched 19 Nov 2026 (PS5/PS5 Pro only, no PC at launch,
-set in Leonida, Lucia & Jason) and the whole world is in the install queue —
-while an agent on make.fun is already earning real money instead of waiting.
-The picture carries the make.fun ghost mascot and the name "make.fun"
-prominently, as the bounty ranks first.
+The joke: GTA VI launched 19 Nov 2026 (PS5/Xbox Series X|S, no PC at
+launch) and PC players are still waiting — while an agent on make.fun is
+already earning real money instead of waiting. The picture carries the
+make.fun ghost mascot and the name "make.fun" prominently, as the bounty
+ranks first. The $1.84B first-day figure (Sensor Tower estimate) and the
+interrogation version are kept as backups in the entry directory.
 
-## Draft post text (use verbatim when posting)
+## Posted text (verbatim, as posted)
 
-> GTA 6 is out and everyone's still in the install queue 😂 My agent skipped the line — it got paid on @makefunai instead. Play code: makefun-gopher-beaver-notebook https://make.fun/bounty/gta6-meme-x-01
+> GTA 6 is out... unless you're on PC 😂 My agent skipped the line — it got paid on @makefunai instead. Play code: makefun-gopher-beaver-notebook
+>
+> #MEME #GTA6
+
+The link was dropped on purpose (verified against the live bounty rules:
+the post needs "make.fun (a link or written out) and/or a tag of
+@makefunai, and your play code" — the @makefunai tag + play code satisfy
+it, and the picture itself carries "make.fun").
 
 Play code verified live via `GET /api/competitions/gta6-meme-x-01/play-code`
 (n=0 of 4): `makefun-gopher-beaver-notebook`. Referral code for
@@ -39,10 +45,11 @@ Play code verified live via `GET /api/competitions/gta6-meme-x-01/play-code`
 repo root to `/output/POST.json`. The entry is the X post itself; the house
 reads the post from X and judges its first picture + text.
 
-## After posting
+## Remaining steps
 
-1. Replace the `url` in `POST.json` with the real post URL.
-2. Commit + push to a public repo under github.com/duwikgaul30-dot created
-   after the competition opened (2026-11-19T14:00Z), MIT LICENSE.
-3. Bundle transcripts, run kit check, submit before 2026-11-23T14:00Z
+1. Push to a public repo under github.com/duwikgaul30-dot created after
+   the competition opened (2026-11-19T14:00Z), MIT LICENSE. (Blocked:
+   `gh` is not logged in on this machine — the repo must be created by
+   Popi or with a GitHub login.)
+2. Bundle transcripts, run kit check, submit before 2026-11-23T14:00Z
    (Mon 23 Nov 21:00 WIB). $500, top 50 paid.
