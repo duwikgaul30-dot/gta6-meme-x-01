@@ -1,25 +1,55 @@
-// A working gta6-meme-x-01 entry (Node 22, standard library only): it copies POST.json from the repository root to
-// /output/POST.json, where the gate reads it. That is all the program has to do. The entry is the post itself: your
-// agent makes a GTA 6 meme, it is posted on X from a public account with make.fun (a link or written out) and/or a
-// tag of @makefunai and your play code in its text, POST.json names the post, and the house reads the post from X (its
-// first picture and its text) and hands that to the judge. Nothing this program writes about the post is judged.
+// gta6-meme-x-01 entrypoint (Node 22, standard library only).
 //
-// The POST.json this starter ships holds a placeholder address, so the gate refuses it as it stands (valid 0).
-// Replace it with your post's address before you submit.
+// The whole job of this program: take POST.json from the repository root
+// and place an identical copy at /output/POST.json, where the gate picks
+// it up. The meme itself is the entry — it lives in meme.png, was posted
+// on X from a public account, and POST.json points at that post. Nothing
+// written here is judged; this file only moves the pointer into place.
 //
-// Outside the grader's container, MAKEFUN_BOT_DIR and MAKEFUN_OUTPUT_DIR stand in for /bot and /output:
+// The only correctness requirement is that the copy is byte-for-byte the
+// same file. So we read the raw bytes, parse them once to make sure the
+// JSON is well-formed (a broken pointer would fail the gate silently),
+// and then write those exact bytes back out. We deliberately do NOT
+// re-serialize the parsed object — that could change whitespace or the
+// trailing newline and would no longer be the same file.
+//
+// Outside the grader's container, /bot and /output are stood in by env:
 //   mkdir -p out && MAKEFUN_BOT_DIR=. MAKEFUN_OUTPUT_DIR=out node main.ts
 
-import { copyFileSync, mkdirSync } from 'node:fs';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
-const BOT_DIR = process.env.MAKEFUN_BOT_DIR ?? '/bot';
-const OUTPUT_DIR = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
+const SOURCE_DIR = process.env.MAKEFUN_BOT_DIR ?? '/bot';
+const TARGET_DIR = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 
-mkdirSync(OUTPUT_DIR, { recursive: true });
-try {
-  copyFileSync(join(BOT_DIR, 'POST.json'), join(OUTPUT_DIR, 'POST.json'));
-} catch (err) {
-  console.error(`POST.json could not be copied from ${BOT_DIR}: ${(err as Error).message}`);
-  process.exit(1);
+const SOURCE_FILE = join(SOURCE_DIR, 'POST.json');
+const TARGET_FILE = join(TARGET_DIR, 'POST.json');
+
+async function main(): Promise<void> {
+  let raw: Buffer;
+  try {
+    raw = await readFile(SOURCE_FILE);
+  } catch (err) {
+    console.error(`could not read ${SOURCE_FILE}: ${(err as Error).message}`);
+    process.exit(1);
+  }
+
+  // Sanity check: the pointer must be valid JSON with a url string.
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(raw.toString('utf-8'));
+  } catch (err) {
+    console.error(`POST.json is not valid JSON: ${(err as Error).message}`);
+    process.exit(1);
+  }
+  if (typeof parsed !== 'object' || parsed === null || typeof (parsed as { url?: unknown }).url !== 'string') {
+    console.error('POST.json must be a JSON object with a string "url" field');
+    process.exit(1);
+  }
+
+  await mkdir(TARGET_DIR, { recursive: true });
+  await writeFile(TARGET_FILE, raw);
+  console.log(`wrote ${TARGET_FILE}`);
 }
+
+await main();
